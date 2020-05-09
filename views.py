@@ -1,7 +1,7 @@
 from flask import request, jsonify
 
-from volunteers.app import app
-from volunteers.models import db, Volunteer, District, Street, Request
+from app import app
+from models import db, Volunteer, District, Street, Request
 
 
 @app.route('/districts/', methods=['GET'])

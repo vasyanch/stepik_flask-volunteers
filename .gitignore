@@ -131,3 +131,4 @@ dmypy.json
 # custom
 test.db
 /insertestdat_.py
+my_log.md
