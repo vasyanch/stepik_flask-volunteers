@@ -52,9 +52,11 @@ def post_help():
             client_phone=data['phone'],
             text=data['text']
         )
+        db.session.add(help_request)
+        db.session.commit()
     except KeyError:
         return jsonify({'status': 'failed'}), 400
-    db.session.add(help_request)
-    db.session.commit()
+    except Exception:
+        return jsonify({'status': 'failed'}), 500
     return jsonify({'status': 'success', 'request_id': help_request.id}), 201, \
            {"Location": f"/help_requests/{help_request.id}/"}
