@@ -1,7 +1,7 @@
 import json
 
-from volunteers.app import db
-from volunteers.models import Volunteer, Street, District
+from app import db
+from models import Volunteer, Street, District
 
 
 def insert_test_data():
