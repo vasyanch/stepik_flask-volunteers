@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: ac2082fcb6a5
+Revision ID: 19e1224f3cf1
 Revises: 
-Create Date: 2020-05-09 16:02:25.142960
+Create Date: 2020-05-09 18:40:19.129957
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'ac2082fcb6a5'
+revision = '19e1224f3cf1'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -43,13 +43,15 @@ def upgrade():
     )
     op.create_table('requests',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('volunteer_id', sa.Integer(), nullable=True),
-    sa.Column('street_id', sa.Integer(), nullable=False),
     sa.Column('address', sa.String(), nullable=False),
     sa.Column('client_name', sa.String(), nullable=False),
     sa.Column('client_surname', sa.String(), nullable=True),
     sa.Column('client_phone', sa.String(), nullable=True),
     sa.Column('text', sa.Text(), nullable=True),
+    sa.Column('volunteer_id', sa.Integer(), nullable=True),
+    sa.Column('street_id', sa.Integer(), nullable=False),
+    sa.Column('district_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['district_id'], ['districts.id'], ),
     sa.ForeignKeyConstraint(['street_id'], ['streets.id'], ),
     sa.ForeignKeyConstraint(['volunteer_id'], ['volunteers.id'], ),
     sa.PrimaryKeyConstraint('id')

@@ -35,7 +35,7 @@ def insert_test_data():
 
 
 revision = 'insertestdat'
-down_revision = 'ac2082fcb6a5'
+down_revision = '19e1224f3cf1'
 branch_labels = None
 depends_on = None
 
