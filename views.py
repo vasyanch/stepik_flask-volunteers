@@ -16,7 +16,7 @@ def get_streets():
     streets = db.session.query(Street)
     if district_id:
         streets = streets.join(Street.districts).filter(District.id == int(district_id))
-    return jsonify([street.serialize for street in streets]), 200
+    return jsonify([street.serialize for street in streets]), 200 if list(streets) else 404
 
 
 @app.route('/volunteers/', methods=['GET'])
@@ -25,7 +25,9 @@ def get_volunteers():
     volunteers = db.session.query(Volunteer)
     if street:
         volunteers = volunteers.join(Volunteer.streets).filter(Street.id == street)
-    return jsonify([volunteer.serialize for volunteer in volunteers.order_by(Volunteer.name)]), 200
+    return \
+        jsonify([volunteer.serialize for volunteer in volunteers.order_by(Volunteer.name)]), \
+        200 if list(volunteers) else 404
 
 
 @app.route('/help_requests/<int:request_id>/', methods=['GET'])
@@ -58,5 +60,6 @@ def post_help():
         return jsonify({'status': 'failed'}), 400
     except Exception:
         return jsonify({'status': 'failed'}), 500
-    return jsonify({'status': 'success', 'request_id': help_request.id}), 201, \
-           {"Location": f"/help_requests/{help_request.id}/"}
+    return \
+        jsonify({'status': 'success', 'request_id': help_request.id}), 201, \
+        {"Location": f"/help_requests/{help_request.id}/"}
